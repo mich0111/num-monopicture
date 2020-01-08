@@ -1,0 +1,196 @@
+<div style="padding:0px; margin:2px 2px; width:80px; height:80px;" class="cmd #history# container-fluid tooltips cmd-widget" data-type="info" data-version="#version#" data-eqLogic_id="#eqLogic_id#" data-subtype="numeric" data-cmd_id="#id#" data-cmd_uid="#uid#">
+	<img class="background#uid#"/>
+	<img class="banner#uid#"/>
+	<img class="icon#uid#" style="transform:translate(-50%,-50%);" />
+	<div class="cmdname#uid#">#name_display#</div>
+	<div class="value#uid#"style=""></div>
+	<div class="unite#uid#"style=""></div>
+
+	<script>
+		jeedom.cmd.update['#id#'] = function(_options){
+			// Récupération des valeurs des paramètres du widget
+			var fldIcon = ('#folder#'!='#'+'folder#') ? '#folder#' : "";
+													// Dossier de l'image à superposer (optionnel)
+			var srcIcon = ('#icon#'!='#'+'icon#') ? '#icon#' : "";
+													// Image à superposer (optionnel)
+			var srcMinVal = (is_numeric('#min#')) ? parseFloat('#min#') : null;
+													// Valeur minimale de la plage de mesure à prendre en compte (optionnel) - Défaut "no"
+			var srcMaxVal = (is_numeric('#max#')) ? parseFloat('#max#') : null;       
+													// Valeur maximale de la plage de mesure à prendre en compte (optionnel) - Défaut "no"
+			var srcColBanMin = ('#colbanmin#'!='#'+'colbanmin#') ? '#colbanmin#': "";
+													// Couleur du bandeau si Min (optionnel) - Défaut "blue"
+			var srcColBanMax = ('#colbanmax#'!='#'+'colbanmax#') ? '#colbanmax#': "";
+													// Couleur du bandeau si Max (optionnel)- Défaut "red"
+			var srcColBanIn = ('#colbanin#'!='#'+'colbanin#') ? '#colbanin#': "";
+													// Couleur du bandeau si à l'intérieur des marges (optionnel) - Défaut "gray"
+			var srcColTxtBnMin = ('#coltxtbnmin#'!='#'+'coltxtbnmin#') ? '#coltxtbnmin#': "";
+													// Couleur du texte bandeau si Min (optionnel) - Défaut "white"
+			var srcColTxtBnMax = ('#coltxtbnmax#'!='#'+'coltxtbnmax#') ? '#coltxtbnmax#': "";
+                        							// Couleur du texte bandeau si Max (optionnel) - Défaut white"
+            var srcColTxtBnIn = ('#coltxtbnin#'!='#'+'coltxtbnin#') ? '#coltxtbnin#': "";
+													// Couleur du texte bandeau si à l'intérieur des marges (optionnel) - Défaut "white"
+            var srcColTxtVal = ('#coltxtval#'!='#'+'coltxtval#') ? '#coltxtval#': "";
+													// Couleur de la valeur (optionnel) - Défaut "black"
+			var srcBlinkVal = ('#blink#'!='#'+'blink#') ? '#blink#': "";
+													// Clignotement si hors marge (optionnel) - Défaut "no"
+			var srcTheme = ('#theme#'!='#'+'theme#') ? '#theme#': "";
+													// Thème du background s'il y a lieu (optionnel) - Défaut standard
+
+			// Récupération de srcState
+			var srcState = _options.display_value;	// Valeur de l'info numérique
+
+			var fldBkg = 'data/customTemplates/dashboard/cmd.action.other.Multi-action-Defaut/fond/';
+													// Dossier des images de background
+			var srcMode = "light";					// Mode du background (dark ou light)
+			var srcColBanner = "";					// Couleur des caractères du bandeau
+			var srcColTxtBanner = "white";			// Couleur des caractères du bandeau
+            var srcMarge = false;                   // Prise en compte d'un rang min et max
+			var srcBlink = false;						// Clignotement
+		
+			// Validation des paramètres
+			if (srcMaxVal > srcMinVal) {
+				srcMarge = true;
+			}
+            if (srcColTxtVal == "" ||srcColTxtVal == null) {
+                srcColTxtVal = "black";
+            }
+			
+			// Sélection du mode clair ou sombre
+			if ($('body')[0].hasAttribute('data-theme')) {
+				if ($('body').attr('data-theme').endsWith('Light')) {
+					srcMode = "light";
+				} else {
+					srcMode = "dark";
+				}
+			}
+
+			// Initialisation de la couleur du bandeau, des caractères de la valeur et du clignotement
+            if (!srcMarge || ((srcState > srcMinVal) && (srcState < srcMaxVal))) {
+                // Dans les marges ou pas de marge
+                srcColBanner = ((srcColBanIn != "") && (srcColBanIn != null)) ? srcColBanIn : "gray";
+                srcColTxtBanner = ((srcColTxtBnIn != "") && (srcColTxtBnIn != null)) ? srcColTxtBnIn : "white";
+                srcBlink = false;
+            } else if (srcState <= srcMinVal) {
+                // Inférieur à min
+                srcColBanner = ((srcColBanMin != "") && (srcColBanMin != null)) ? srcColBanMin : "blue";
+                srcColTxtBanner = ((srcColTxtBnMin != "") && (srcColTxtBnMin != null)) ? srcColTxtBnMin : "white";
+                srcBlink = (srcBlinkVal == "yes") ? true : false;
+            } else {
+                // Supérieur à max
+                srcColBanner = ((srcColBanMax != "") && (srcColBanMax != null)) ? srcColBanMax : "red";
+	    		srcColTxtBanner = ((srcColTxtBnMax != "") && (srcColTxtBnMax != null)) ? srcColTxtBnMax : "white";
+                srcBlink = (srcBlinkVal == "yes") ? true : false;
+            }
+
+			// Affichage du background
+			if (srcTheme != "") {
+				srcTheme = srcTheme + '_';
+			}
+			$('.background#uid#').empty().attr("src", fldBkg + 'fo_bkg_' + srcTheme + srcMode + '.png');
+
+            // Mise en oeuvre des cilgonotements s'il y a lieu
+            if (srcBlink) {
+                $('.banner#uid#').addClass('blinking');
+                $('.value#uid#').addClass('blinking');
+				$('.unite#uid#').addClass('blinking');
+            } else {
+                $('.banner#uid#').removeClass('blinking');
+                $('.value#uid#').removeClass('blinking');
+				$('.unite#uid#').removeClass('blinking');
+            }
+
+			// Affichage du bandeau et de ses options
+			$('.banner#uid#').css('background-color', srcColBanner);
+			$('.banner#uid#').empty().attr("src", fldBkg + 'fo_banner.png');
+
+			// Affichage de l'icone et de ses options si demandé
+            if (fldIcon != "" && fldIcon != null && srcIcon != "" && srcIcon != null) {
+	    		fldIcon = 'data/customTemplates/dashboard/cmd.action.other.Multi-action-Defaut/' + fldIcon + '/';
+                $('.icon#uid#').empty().attr('src', fldIcon + srcIcon + '.png');
+            } else {
+                $('.icon#uid#').hide();
+			}
+
+			// Affichage des textes
+			$('.cmdname#uid#').css('color', srcColTxtBanner);
+			$('.value#uid#').css('color', srcColTxtVal);
+			$('.unite#uid#').css('color', srcColTxtVal);
+			$('.value#uid#').empty().text(srcState);
+			$('.unite#uid#').empty().text(' #unite#');
+          	
+			$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate);
+		}
+		jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+	</script>
+
+	<style>
+		div.cmdname#uid# {
+			font-size:1em;
+			font-weight:bold;
+			position:absolute;
+			vertical-align:middle;
+			text-align:center;
+			top:82%;
+			left:0%;
+			width:80px;
+			height:80px;
+			z-index:4;
+		}
+		div.value#uid# {
+			font-size:4em;
+			font-weight:bold;
+			position:absolute;
+			vertical-align:middle;
+			text-align:center;
+			top:35%;
+			width:80px;
+			height:80px;
+			z-index:4;
+			letter-spacing:0px;
+		}
+		div.unite#uid# {
+			font-size:1.2em;
+			font-weight:bold;
+			position:absolute;
+			vertical-align:middle;
+			text-align:right;
+			top:65%;
+			width:80px;
+			height:80px;
+			z-index:4;
+			letter-spacing:0px;
+		}
+		img.background#uid# {
+			position:absolute;
+			border-radius:0px 0px 6px 6px;
+			top:0%;
+			left:0%;
+			width:80px;
+			height:80px;
+			z-index:1;
+		}
+		img.banner#uid# {
+			position:absolute;
+			border-radius:0px 0px 6px 6px;
+			bottom:0%;
+			left:0%;
+			width:80px;
+			height:16px;
+			z-index:2;
+		}
+		img.icon#uid# {
+			position:absolute;
+			margin:0;
+			top:35%;
+			left:52%;
+			max-height:50px;
+			max-width:50px;
+			z-index:2;
+		}
+		@keyframes blinking {
+			20% {opacity:0;}
+			100% {opacity:1;}
+		}
+		.blinking {animation:blinking infinite 1s;}
+	</style>
+</div>
