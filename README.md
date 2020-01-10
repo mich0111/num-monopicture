@@ -21,17 +21,17 @@ Les images à afficher devront être au format png.
 
 Voici les paramètres à prendre en compte pour l’utilisation de ce widget.
 
-    - min : (optionnelle), valeur de la borne minimale, bandeau min.
-    - max : (optionnelle) > min, valeur de la borne maximale, bandeau max.
-    - icon : (optionnelle), nom de l’image, pour “image.png”, passer “image”).
-    - folder : (optionnelle), nom du dossier de l’image (vent, eau, …).
-    - colbanmin : (optionnel), couleur du bandeau si la valeur de la commande <= min - Par défaut "blue".
-    - colbanmax : (optionnel), couleur du bandeau si la valeur de la commande >= max - Par défaut "red".
-    - colbanin : (optionnel), couleur du bandeau si la valeur de la commande entre min et max - Par défaut "gray".
-    - coltxtbnmin : (optionnel), couleur du texte du bandeau si la valeur de la commande <= min - Par défaut "white".
-    - coltxtbnmax : (optionnel), couleur du texte du bandeau si la valeur de la commande >= max - Par défaut "white".
-    - coltxtbnin : (optionnel), couleur du texte du bandeau si la valeur de la commande entre min et max - Par défaut "white".
-    - coltxtval : (optionnel), couleur du texte de la valeur de la commande - Par défaut "black".
-    - blink : (optionnel), clignotement du bandeau et de la valeur si celle-ci est hors bornes.
+    - min : (optionnel), valeur de la borne minimale, bandeau min.
+    - max : (optionnel) > min, valeur de la borne maximale, bandeau max.
+    - icon : (optionnel), nom de l’image, pour “image.png”, passer “image”).
+    - folder : (optionnel), nom du dossier de l’image (vent, eau, …).
+    - colbanmin : (optionnel), couleur du bandeau si la valeur de la commande <= min - Par défaut ="blue".
+    - colbanmax : (optionnel), couleur du bandeau si la valeur de la commande >= max - Par défaut = "red".
+    - colbanin : (optionnel), couleur du bandeau si la valeur de la commande entre min et max - Par défaut = "gray".
+    - coltxtbnmin : (optionnel), couleur du texte du bandeau si la valeur de la commande <= min - Par défaut = "white".
+    - coltxtbnmax : (optionnel), couleur du texte du bandeau si la valeur de la commande >= max - Par défaut = "white".
+    - coltxtbnin : (optionnel), couleur du texte du bandeau si la valeur de la commande entre min et max - Par défaut = "white".
+    - coltxtval : (optionnel), couleur du texte de la valeur de la commande - Par défaut = "black".
+    - blink : (optionnel), si = "yes", clignotement du bandeau et de la valeur si celle-ci est hors bornes - Par défaut = "no".
     - theme : (optionnel), nom du thème de fond à afficher. Les fichiers de fond devront alors s’appeler fo_bkg_nom_dark.png et fo_bkg_nom_light.png. Si le paramètre est absent, les thèmes par défaut seront affichés.
     
