@@ -15,7 +15,7 @@
 													// Image à superposer (optionnel)
 			var srcMinVal = (is_numeric('#min#')) ? parseFloat('#min#') : null;
 													// Valeur minimale de la plage de mesure à prendre en compte (optionnel) - Défaut "no"
-			var srcMaxVal = (is_numeric('#max#')) ? parseFloat('#max#') : null;       
+			var srcMaxVal = (is_numeric('#max#')) ? parseFloat('#max#') : null;
 													// Valeur maximale de la plage de mesure à prendre en compte (optionnel) - Défaut "no"
 			var srcColBanMin = ('#colbanmin#'!='#'+'colbanmin#') ? '#colbanmin#': "";
 													// Couleur du bandeau si Min (optionnel) - Défaut "blue"
@@ -26,7 +26,7 @@
 			var srcColTxtBnMin = ('#coltxtbnmin#'!='#'+'coltxtbnmin#') ? '#coltxtbnmin#': "";
 													// Couleur du texte bandeau si Min (optionnel) - Défaut "white"
 			var srcColTxtBnMax = ('#coltxtbnmax#'!='#'+'coltxtbnmax#') ? '#coltxtbnmax#': "";
-                        							// Couleur du texte bandeau si Max (optionnel) - Défaut white"
+													// Couleur du texte bandeau si Max (optionnel) - Défaut white"
 			var srcColTxtBnIn = ('#coltxtbnin#'!='#'+'coltxtbnin#') ? '#coltxtbnin#': "";
 													// Couleur du texte bandeau si à l'intérieur des marges (optionnel) - Défaut "white"
 			var srcColTxtVal = ('#coltxtval#'!='#'+'coltxtval#') ? '#coltxtval#': "";
@@ -44,8 +44,8 @@
 			var srcMode = "light";					// Mode du background (dark ou light)
 			var srcColBanner = "";					// Couleur des caractères du bandeau
 			var srcColTxtBanner = "white";			// Couleur des caractères du bandeau
-			var srcMarge = false;                   // Prise en compte d'un rang min et max
-			var srcBlink = false;						// Clignotement
+			var srcMarge = false;					// Prise en compte d'un rang min et max
+			var srcBlink = false;					// Clignotement
 		
 			// Validation des paramètres
 			if (srcMaxVal > srcMinVal) {
@@ -65,22 +65,22 @@
 			}
 
 			// Initialisation de la couleur du bandeau, des caractères de la valeur et du clignotement
-            if (!srcMarge || ((srcState > srcMinVal) && (srcState < srcMaxVal))) {
-                // Dans les marges ou pas de marge
-                srcColBanner = ((srcColBanIn != "") && (srcColBanIn != null)) ? srcColBanIn : "gray";
-                srcColTxtBanner = ((srcColTxtBnIn != "") && (srcColTxtBnIn != null)) ? srcColTxtBnIn : "white";
-                srcBlink = false;
-            } else if (srcState <= srcMinVal) {
-                // Inférieur à min
-                srcColBanner = ((srcColBanMin != "") && (srcColBanMin != null)) ? srcColBanMin : "blue";
-                srcColTxtBanner = ((srcColTxtBnMin != "") && (srcColTxtBnMin != null)) ? srcColTxtBnMin : "white";
-                srcBlink = (srcBlinkVal == "yes") ? true : false;
-            } else {
-                // Supérieur à max
-                srcColBanner = ((srcColBanMax != "") && (srcColBanMax != null)) ? srcColBanMax : "red";
-	    		srcColTxtBanner = ((srcColTxtBnMax != "") && (srcColTxtBnMax != null)) ? srcColTxtBnMax : "white";
-                srcBlink = (srcBlinkVal == "yes") ? true : false;
-            }
+			if (!srcMarge || ((srcState > srcMinVal) && (srcState < srcMaxVal))) {
+				// Dans les marges ou pas de marge
+				srcColBanner = ((srcColBanIn != "") && (srcColBanIn != null)) ? srcColBanIn : "gray";
+				srcColTxtBanner = ((srcColTxtBnIn != "") && (srcColTxtBnIn != null)) ? srcColTxtBnIn : "white";
+				srcBlink = false;
+			} else if (srcState <= srcMinVal) {
+				// Inférieur à min
+				srcColBanner = ((srcColBanMin != "") && (srcColBanMin != null)) ? srcColBanMin : "blue";
+				srcColTxtBanner = ((srcColTxtBnMin != "") && (srcColTxtBnMin != null)) ? srcColTxtBnMin : "white";
+				srcBlink = (srcBlinkVal == "yes") ? true : false;
+			} else {
+				// Supérieur à max
+				srcColBanner = ((srcColBanMax != "") && (srcColBanMax != null)) ? srcColBanMax : "red";
+				srcColTxtBanner = ((srcColTxtBnMax != "") && (srcColTxtBnMax != null)) ? srcColTxtBnMax : "white";
+				srcBlink = (srcBlinkVal == "yes") ? true : false;
+			}
 
 			// Affichage du background
 			if (srcTheme != "") {
@@ -88,27 +88,27 @@
 			}
 			$('.background#uid#').empty().attr("src", fldBkg + 'fo_bkg_' + srcTheme + srcMode + '.png');
 
-            // Mise en oeuvre des cilgonotements s'il y a lieu
-            if (srcBlink) {
-                $('.banner#uid#').addClass('blinking');
-                $('.value#uid#').addClass('blinking');
+			// Mise en oeuvre des cilgonotements s'il y a lieu
+			if (srcBlink) {
+				$('.banner#uid#').addClass('blinking');
+				$('.value#uid#').addClass('blinking');
 				$('.unite#uid#').addClass('blinking');
-            } else {
-                $('.banner#uid#').removeClass('blinking');
-                $('.value#uid#').removeClass('blinking');
+			} else {
+				$('.banner#uid#').removeClass('blinking');
+				$('.value#uid#').removeClass('blinking');
 				$('.unite#uid#').removeClass('blinking');
-            }
+			}
 
 			// Affichage du bandeau et de ses options
 			$('.banner#uid#').css('background-color', srcColBanner);
 			$('.banner#uid#').empty().attr("src", fldBkg + 'fo_banner.png');
 
 			// Affichage de l'icone et de ses options si demandé
-            if (fldIcon != "" && fldIcon != null && srcIcon != "" && srcIcon != null) {
-	    		fldIcon = 'data/customTemplates/dashboard/cmd.action.other.Multi-action-Defaut/' + fldIcon + '/';
-                $('.icon#uid#').empty().attr('src', fldIcon + srcIcon + '.png');
-            } else {
-                $('.icon#uid#').hide();
+			if (fldIcon != "" && fldIcon != null && srcIcon != "" && srcIcon != null) {
+				fldIcon = 'data/customTemplates/dashboard/cmd.action.other.Multi-action-Defaut/' + fldIcon + '/';
+				$('.icon#uid#').empty().attr('src', fldIcon + srcIcon + '.png');
+			} else {
+				$('.icon#uid#').hide();
 			}
 
 			// Affichage des textes
@@ -117,7 +117,7 @@
 			$('.unite#uid#').css('color', srcColTxtVal);
 			$('.value#uid#').empty().text(srcState);
 			$('.unite#uid#').empty().text(' #unite#');
-          	
+
 			$('.cmd[data-cmd_uid=#uid#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate);
 		}
 		jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
