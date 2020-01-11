@@ -38,4 +38,4 @@ Voici les paramètres à prendre en compte pour l’utilisation de ce widget.
 
 Résultat à l'affichage:
 
-https://github.com/mich0111/num-monopicture/issues/1#issue-548407591
+![monopicture](https://user-images.githubusercontent.com/54777712/72202353-ae0ed800-345e-11ea-8fd1-0ccdbeda48e3.gif)
